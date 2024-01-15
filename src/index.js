@@ -1,19 +1,30 @@
-// index.js
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
+import cors from 'cors';
+import express from 'express';
+import indexRouter from './routes/challengeRoutes.js';
 
-const express = require('express');
-const challengeController = require('./controller'); // Assuming your controller file is named controller.js
 
 const app = express();
-const PORT = 3000;
+app.use(cors());
 
-// Middleware setup (if needed)
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes setup
-app.get('/challenges', challengeController.getAllChallenges);
-app.get('/challenges/:id', challengeController.getChallengeById);
+app.use('/', indexRouter);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+
+app.use((req, res,) => {
+    try {
+        res.status(404).send("Sorry can't find that!");
+    } catch (err) {
+        throw new Error('Error occurred during 404');
+    }
 });
+
+
+app.set('port', process.env.PORT);
+const server = app.listen(app.get('port'), () => {
+    ` console.log(Express running → PORT ${server.address().port}); `
+}); 
+
