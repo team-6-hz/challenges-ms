@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { supabase } from '../supabaseClient.js';
+import port from '../port.js';
 // Mock data (replace with database)
 const challenges = [
     [
@@ -47,7 +48,6 @@ const challenges = [
       ]
     ]
     const app = express();
-    const port = 3020;
     app.use(cors());  
   
     async function getData() {
