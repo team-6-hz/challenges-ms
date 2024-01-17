@@ -1,7 +1,10 @@
 import cors from 'cors';
 import express from 'express';
-import { supabase } from '../supabaseClient.js';
-import port from '../port.js';
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+dotenv.config({ path: './/.env' });
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 // Mock data (replace with database)
 const challenges = [
     [
@@ -47,16 +50,18 @@ const challenges = [
         { id: 40, description: 'Set intentions for the day; let each goal be a step toward a fulfilling journey.' }
       ]
     ]
-    const app = express();
-    app.use(cors());  
   
-    async function getData() {
-      const { data, error } = await supabase.from('challenges').select('*');
-      if (error) console.log('query error', error);
-      else{
-          console.log(data);
-          return data;
-      } 
+async function getData() {
+    try {
+        const { data, error } = await supabase.from('challenges').select('*');
+        if (error) console.log('query error', error);
+        else {
+            console.log(data);
+            return data;
+        }
+    } catch (error) {
+        console.log('error', error);
+    }
   }
   export const getChallenges = async function getChallengeData(req, res, next) {
     try {
