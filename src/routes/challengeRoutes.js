@@ -4,4 +4,5 @@ const router = express.Router();
 router.get('/challenges', challengeController.getAllChallenges);
 router.get('/challenges/:id', challengeController.getChallengeById);
 router.get('/getChallenges', challengeController.getChallenges);
+router.post('/completeChallenge', challengeController.completeChallenge);
 export default router;
