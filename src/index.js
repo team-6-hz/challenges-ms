@@ -1,18 +1,13 @@
 import cors from 'cors';
 import express from 'express';
 import indexRouter from './routes/challengeRoutes.js';
-import { supabase } from './supabaseClient.js';
-import port from './port.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
 
 const app = express();
-const currentPort = port()
 app.use(cors());
 
 app.use('/', indexRouter);
-
-const server = app.listen(currentPort, () => {
-    console.log(`Example app listening at http://localhost:${currentPort}`)
-}); 
 
 app.use((req, res,) => {
     try {
@@ -20,4 +15,9 @@ app.use((req, res,) => {
     } catch (err) {
         throw new Error('Error occurred during 404');
     }
+});
+
+app.set('port', process.env.PORT);
+const server = app.listen(app.get('port'), () => {
+    console.log(`service is running on port ${server.address().port}`);
 });
