@@ -102,11 +102,6 @@ export const completeChallenge = async (req, res) => {
   }
 };
 
-
-
-
-
-// Function to check if a user has completed a challenge
 export const hasUserCompletedChallenge = async (userId, challengeId) => {
   try {
     const { data, error } = await supabase
