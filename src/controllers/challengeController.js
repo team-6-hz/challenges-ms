@@ -63,9 +63,10 @@ export const completeChallenge = async (req, res) => {
   try {
     
     let challengeId = req.body.challengeId; // Assuming challenge_id is in the request body
-    let userId = req.body.user_id; // Assuming user_id is in the request body
+    let userId = req.body.userId; // Assuming user_id is in the request body
     console.log('Received');
-
+    console.log(challengeId);
+    console.log(userId);
     if (!userId || !challengeId) {
       console.error('User ID or Challenge ID is undefined.');
       return res.status(400).json({ success: false, error: 'User ID or Challenge ID is undefined.' });
