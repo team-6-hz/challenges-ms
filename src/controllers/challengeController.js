@@ -103,22 +103,27 @@ export const completeChallenge = async (req, res) => {
   }
 };
 
-export const hasUserCompletedChallenge = async (userId, challengeId) => {
+export const hasUserCompletedChallenge = async (req, res) => {
+  let userId = req.params.userId; // Assuming user_id is in the request body
+  let challengeId = req.params.challengeId; // Assuming challenge_id is in the request body
   try {
+    console.log('recieved request')
     const { data, error } = await supabase
       .from('challenge_completions')
       .select()
       .eq('user_id', userId)
       .eq('challenge_id', challengeId);
 
-    if (error) {
-      console.error('Error checking completion:', error);
-      return false;
+  
+    if (data) {
+      res.json(data.length > 0);
+    } else {
+      res.status(404).json({ error: 'Challenge not found' });
     }
-
-    return data.length > 0;
+    return ;
   } catch (error) {
     console.error('Error checking completion:', error);
     return false;
   }
 };
+
