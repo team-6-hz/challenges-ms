@@ -7,5 +7,9 @@ router.get('/getChallenges', challengeController.getChallenges);
 router.post('/completeChallenge', challengeController.completeChallenge);
 router.get('/checkChallengeCompletion/:userId/:challengeId', challengeController.hasUserCompletedChallenge);
 
+router.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
 
 export default router;
