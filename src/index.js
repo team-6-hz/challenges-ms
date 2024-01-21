@@ -6,8 +6,15 @@ dotenv.config({ path: './.env' });
 
 const app = express();
 app.use(cors());
-
+app.use(express.json())
 app.use('/', indexRouter);
+
+
+
+app.set('port', process.env.PORT);
+const server = app.listen(app.get('port'), () => {
+    console.log(`service is running on port ${server.address().port}`);
+});
 
 app.use((req, res,) => {
     try {
@@ -15,9 +22,4 @@ app.use((req, res,) => {
     } catch (err) {
         throw new Error('Error occurred during 404');
     }
-});
-
-app.set('port', process.env.PORT);
-const server = app.listen(app.get('port'), () => {
-    console.log(`service is running on port ${server.address().port}`);
 });
