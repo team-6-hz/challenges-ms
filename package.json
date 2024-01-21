@@ -1,7 +1,7 @@
 {
   "name": "challenges-ms",
   "version": "1.0.0",
-  "description": "",
+  "description": "Microservice for handling challenges in application.",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "dev": "nodemon src/index.js --legacy-watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jens, Odin",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.38.5",
