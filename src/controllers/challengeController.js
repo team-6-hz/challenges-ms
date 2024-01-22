@@ -8,7 +8,7 @@ import dotenv from 'dotenv'; // Load environment variables from a .env file
 dotenv.config({ path: './/.env' });
 
 // Initialize Supabase client with the provided environment variables
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const supabase = createClient("https://sgrtrvnslhhjwrclsvtw.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNncnRydm5zbGhoandyY2xzdnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDExNzc3NTUsImV4cCI6MjAxNjc1Mzc1NX0.ZI3K70sK9mGp02UwDHLkBoAYneSXZObwdUDOm-xFJ7k");
 
 // Function to fetch data from the 'challenges' table in Supabase
 async function getData() {

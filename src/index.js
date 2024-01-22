@@ -11,7 +11,7 @@ app.use('/', indexRouter);
 
 
 
-app.set('port', process.env.PORT);
+app.set('port', '3030');
 const server = app.listen(app.get('port'), () => {
     console.log(`service is running on port ${server.address().port}`);
 });
