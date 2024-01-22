@@ -7,6 +7,9 @@ import dotenv from 'dotenv'; // Load environment variables from a .env file
 // Load environment variables from the .env file
 dotenv.config({ path: './/.env' });
 
+
+
+
 // Initialize Supabase client with the provided environment variables
 const supabase = createClient("https://sgrtrvnslhhjwrclsvtw.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNncnRydm5zbGhoandyY2xzdnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDExNzc3NTUsImV4cCI6MjAxNjc1Mzc1NX0.ZI3K70sK9mGp02UwDHLkBoAYneSXZObwdUDOm-xFJ7k");
 
@@ -142,6 +145,35 @@ export const hasUserCompletedChallenge = async (req, res) => {
     // Respond based on whether data was retrieved and if the challenge was completed
     if (data) {
       res.json(data.length > 0);
+    } else {
+      res.status(404).json({ error: 'Challenge not found' });
+    }
+
+    // Return to signify the end of the function
+    return;
+  } catch (error) {
+    // Handle any errors that might occur during the process
+    console.error('Error checking completion:', error);
+    return false;
+  }
+};
+
+export const completedChallenges = async (req, res) => {
+  // Extract user ID and challenge ID from the request parameters
+  let userId = req.params.userId; // Assuming user_id is in the request body
+  let challengeId = req.params.challengeId; // Assuming challenge_id is in the request body
+
+  try {
+    console.log('Received request');
+
+    // Use the Supabase client to select data from 'challenge_completions' based on user and challenge IDs
+    const { data, error } = await supabase
+      .from('challenge_completions')
+      .select();
+
+    // Respond based on whether data was retrieved and if the challenge was completed
+    if (data) {
+      res.json(data);
     } else {
       res.status(404).json({ error: 'Challenge not found' });
     }
